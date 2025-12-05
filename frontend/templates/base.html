@@ -11,11 +11,12 @@
     {% block css %}
     {% endblock %}
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
+    <div class="flex-grow-1">
 
     {% include 'partials/navbar.html' %}
 
-    <main class="py-4">
+    <main class="py-4 flex-grow-1 d-flex justify-content-center align-items-center">
         <div class="container">
             {% block content %}
 
@@ -24,6 +25,7 @@
             {% endblock %}
         </div>
     </main>
+    </div>
 
     {% include 'partials/footer.html' %}
 
