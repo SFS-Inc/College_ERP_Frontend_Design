@@ -17,31 +17,37 @@
 
                 <h2 class="text-center text-dark fw-light mb-4">Faculty Dashboard</h2>
 
-                {% if form.errors %}
+                {% if error_message %}
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
                     <i class="fa-solid fa-circle-exclamation me-2"></i>
-                    Invalid Username or Password
+                    {{ error_message }}
                 </div>
                 {% endif %}
 
-                <form method="post">
+                <form 
+                    hx-post="{% url 'login_submit' %}"
+                    hx-target="#login-error"
+                    hx-swap="innerHTML"
+                    method="post"
+                >                
                     {% csrf_token %}
 
                     <div class="mb-4">
                         <label for="id_username" class="form-label text-secondary small ps-2">
-                            Username
+                            Enter your Username:
                         </label>
                         <input type="text" 
                                name="username" 
                                class="form-control form-control-lg rounded-pill shadow-sm bg-white px-4" 
                                placeholder="Enter your username"
                                required 
-                               id="id_username">
+                               id="id_username"
+                               autofocus>
                     </div>
 
                     <div class="mb-4">
                         <label for="id_password" class="form-label text-secondary small ps-2">
-                            Password
+                            Enter your Password:
                         </label>
                         <input type="password" 
                                name="password" 
@@ -53,9 +59,13 @@
 
                     <div class="d-grid">
                         <button type="submit" 
-                                class="btn btn-primary btn-lg rounded-pill py-2 shadow-sm">
+                                class="btn btn-primary btn-lg rounded-pill py-2 shadow-sm"
+                                hx-indicator="login-loading">
                             Login
                         </button>
+                        <div id="login-loading" class="htmx-indicator mt-2">
+                            <div class="spinner-border text-primary"></div>
+                        </div>
                     </div>
 
                 </form>
@@ -63,4 +73,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
