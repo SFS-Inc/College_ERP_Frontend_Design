@@ -11,19 +11,23 @@
 
     <div class="row g-4">
 
-        <!-- Manage Faculties -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body text-center p-4">
-                    <div class="display-5 text-primary mb-3">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <h5 class="fw-bold">Manage Faculties</h5>
-                    <p class="small text-muted">Create / Edit / Assign Subjects</p>
-                    <a href="#" class="btn btn-primary w-100">Open</a>
+    <!-- Manage Faculties -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center p-4">
+                <div class="display-5 text-primary mb-3">
+                    <i class="fa-solid fa-users"></i>
                 </div>
+                <h5 class="fw-bold">Manage Faculties</h5>
+                <p class="small text-muted">Create / Edit / Assign Subjects</p>
+
+                <a href="{% url 'admin_faculty_list' %}" class="btn btn-primary w-100">
+                Open
+                </a>
             </div>
         </div>
+    </div>
+
 
         <!-- Approve Subjects -->
         <div class="col-md-3">
@@ -34,7 +38,7 @@
                     </div>
                     <h5 class="fw-bold">Approval Requests</h5>
                     <p class="small text-muted">Approve subjects, chapters, topics</p>
-                    <a href="#" class="btn btn-warning text-white w-100">Review</a>
+                    <a href="{% url 'admin_subject_list' %}" class="btn btn-info">Manage Subjects</a>
                 </div>
             </div>
         </div>

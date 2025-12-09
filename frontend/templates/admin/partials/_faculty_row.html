@@ -1,0 +1,68 @@
+<tr id="faculty-{{ faculty.id }}">
+  <td>{{ faculty.username }}</td>
+  <td>{{ faculty.email }}</td>
+  <td>{{ faculty.role }}</td>
+
+  <td>
+    {% if faculty.is_active %}
+      <span class="badge bg-success">Active</span>
+    {% else %}
+      <span class="badge bg-secondary">Inactive</span>
+    {% endif %}
+  </td>
+
+  <td>
+    <div class="btn-group">
+
+      <!-- EDIT (GET, no CSRF required) -->
+      <button class="btn btn-sm btn-outline-primary"
+              hx-get="{% url 'admin_faculty_edit' faculty.id %}"
+              hx-target="#modal-body"
+              hx-swap="innerHTML"
+              data-bs-toggle="modal"
+              data-bs-target="#modal">
+        Edit
+      </button>
+
+
+      <!-- TOGGLE ACTIVE (POST → requires CSRF) -->
+      <form 
+        hx-post="{% url 'admin_faculty_toggle_active' faculty.id %}"
+        hx-target="#faculty-{{ faculty.id }}"
+        hx-swap="outerHTML"
+        onsubmit="return confirm('Toggle active status?');"
+        class="d-inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-outline-secondary">
+          {% if faculty.is_active %}Deactivate{% else %}Activate{% endif %}
+        </button>
+      </form>
+
+
+      <!-- TOGGLE ROLE (POST → requires CSRF) -->
+      <form 
+        hx-post="{% url 'admin_faculty_toggle_role' faculty.id %}"
+        hx-target="#faculty-{{ faculty.id }}"
+        hx-swap="outerHTML"
+        onsubmit="return confirm('Promote / Demote this user?');"
+        class="d-inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-outline-warning">
+          {% if faculty.role == 'admin' %}Demote{% else %}Promote{% endif %}
+        </button>
+      </form>
+
+
+      <!-- ASSIGN SUBJECTS (GET, no CSRF needed) -->
+      <button class="btn btn-sm btn-outline-info"
+              hx-get="{% url 'admin_faculty_assign_subjects' faculty.id %}"
+              hx-target="#modal-body"
+              hx-swap="innerHTML"
+              data-bs-toggle="modal"
+              data-bs-target="#modal">
+        Assign Subjects
+      </button>
+
+    </div>
+  </td>
+</tr>

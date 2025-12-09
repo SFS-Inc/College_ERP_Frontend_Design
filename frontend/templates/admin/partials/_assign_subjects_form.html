@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h5 class="modal-title">Assign Subjects — {{ faculty.username }}</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+  <form method="post"
+        hx-post="{% url 'admin_faculty_assign_subjects' faculty.id %}"
+        hx-target="#faculty-{{ faculty.id }}"
+        hx-swap="outerHTML">
+    {% csrf_token %}
+    <div class="mb-3">
+      {{ form.subjects.label_tag }}
+      {{ form.subjects }}
+    </div>
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>
